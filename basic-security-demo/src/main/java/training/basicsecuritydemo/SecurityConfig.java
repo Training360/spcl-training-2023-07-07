@@ -3,6 +3,7 @@ package training.basicsecuritydemo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
 //    @Bean
@@ -29,7 +31,7 @@ public class SecurityConfig {
 
     @Bean
     public UserService userDetailsService(UserRepository userRepository) {
-        return new UserService(userRepository);
+        return new UserService(userRepository, passwordEncoder());
     }
 
     @Bean
@@ -43,9 +45,9 @@ public class SecurityConfig {
                 .authorizeExchange(spec -> spec
                         // Most mégsem lesz végtelenciklus?
 //                                .pathMatchers("/login", "/logout").permitAll()
-                                .pathMatchers("/").authenticated()
-                                .pathMatchers("/users").hasRole("ADMIN")
-                                .anyExchange().hasAnyRole("USER", "ADMIN")
+                                .pathMatchers("/users").hasAnyRole("USER", "ADMIN")
+                                .pathMatchers("/users/add").hasRole("ADMIN")
+                                .anyExchange().authenticated()
                         )
                 .formLogin(Customizer.withDefaults())
                 .logout(Customizer.withDefaults());
