@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
 </head>
 <body>
+
+<div sec:authorize="isAuthenticated()">
+    <p>Bejelentkezett felhasználó:
+        <span sec:authentication="name">Bob</span></p>
+
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="Kijelentkezés" />
+    </form>
+
+    <p>Szerepkör: <span sec:authentication="principal.authorities">[]</span></p>
+</div>
+
+
 
 <ul>
   <th:block th:each="user : ${users}">
