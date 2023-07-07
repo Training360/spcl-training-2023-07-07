@@ -10,15 +10,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public ReactiveUserDetailsService userDetailsService() {
-        UserDetails user = User
-                .withDefaultPasswordEncoder()
-                .username("user")
-                .password("user")
-                .roles("USER")
-                .build();
+//    @Bean
+//    public ReactiveUserDetailsService userDetailsService() {
+//        UserDetails user = User
+//                .withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("user")
+//                .roles("USER")
+//                .build();
+//
+//        return new MapReactiveUserDetailsService(user);
+//    }
 
-        return new MapReactiveUserDetailsService(user);
+    @Bean
+    public ReactiveUserDetailsService userDetailsService(UserRepository userRepository) {
+        return new UserService(userRepository);
     }
 }
