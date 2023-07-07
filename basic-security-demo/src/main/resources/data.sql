@@ -1,0 +1,2 @@
+insert into USERS(USERNAME, PASSWORD, ROLE) values ('user', '$2a$10$7ko0YKPIamNNCKO96gkc0.gNVhPCaoQMh5zTotYPoN8A.ABzic4a6', 'ROLE_USER')
+insert into USERS(USERNAME, PASSWORD, ROLE) values ('admin', '$2a$10$3ZhulX93cLix5CXKnEGrReo/eRAOaLd6tomz4ovlxbqS9ypUpwcaK', 'ROLE_ADMIN')
