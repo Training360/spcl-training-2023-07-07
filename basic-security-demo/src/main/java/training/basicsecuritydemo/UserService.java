@@ -25,7 +25,7 @@ public class UserService implements ReactiveUserDetailsService {
         return userRepository.findAll();
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<User> create(Mono<CreateUserCommand> commandMono) {
         return commandMono
                 // Élesben MapStruct
