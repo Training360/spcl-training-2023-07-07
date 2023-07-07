@@ -1,0 +1,6 @@
+### Get Training360
+GET https://training360.com
+
+### Get localhost, IDEA esetén nem kettőspont, hanem space az elválasztó
+GET http://localhost:8080
+Authorization: Basic user:89f4fd83-6eb2-4fae-8496-75763eca2a7d
