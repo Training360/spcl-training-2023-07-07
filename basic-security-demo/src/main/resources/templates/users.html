@@ -26,6 +26,9 @@
   </th:block>
 </ul>
 
+<div th:if="${canAdd}">
+    <a th:href="@{/users/add}">Add user</a>
+</div>
 
 </body>
 </html>
