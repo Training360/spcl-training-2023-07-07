@@ -43,13 +43,14 @@ public class SecurityConfig {
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange(spec -> spec
-                        // Most mégsem lesz végtelenciklus?
-//                                .pathMatchers("/login", "/logout").permitAll()
+                        // Default loginnál nincs végtelenciklus ennek a hiányában
+                        // sajátnál van
+                                .pathMatchers("/login", "/logout").permitAll()
                                 .pathMatchers("/users").hasAnyRole("USER", "ADMIN")
                                 .pathMatchers("/users/add").hasRole("ADMIN")
                                 .anyExchange().authenticated()
                         )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(spec -> spec.loginPage("/login"))
                 .logout(Customizer.withDefaults());
         return http.build();
     }
