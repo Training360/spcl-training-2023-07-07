@@ -25,8 +25,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public Mono<Rendering> listEmployees() {
-
+    public Mono<Rendering> listEmployees(Principal principal) {
+        log.debug("principal: {}", principal);
         return Mono.just(
                 Rendering.view("employees")
                         .modelAttribute("employees", employeesClient.listEmployees())
