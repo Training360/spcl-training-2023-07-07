@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Add user</h1>
+
+<form method="post" th:action="@{/users/add}" th:object="${command}">
+    Felhasználónév: <input th:field=*{name} type="text" />
+    Jelszó: <input type="password" th:field=*{password} />
+    Szerepkör: <select th:field="*{role}">
+    <option value="ROLE_USER">USER</option>
+    <option value="ROLE_ADMIN">ADMIN</option>
+</select>
+
+    <input type="submit" value="Felvesz" />
+</form>
+
+</body>
+</html>

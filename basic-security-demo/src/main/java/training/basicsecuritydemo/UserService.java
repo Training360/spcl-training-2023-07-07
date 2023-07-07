@@ -21,10 +21,10 @@ public class UserService implements ReactiveUserDetailsService {
         return userRepository.findAll();
     }
 
-//    public Mono<User> create(Mono<CreateUserCommand> commandMono) {
-//        return commandMono
-//                // Élesben MapStruct
-//                .map(command -> new User(command.getName(), command.getPassword(), command.getRole()))
-//                .flatMap(userRepository::save);
-//    }
+    public Mono<User> create(Mono<CreateUserCommand> commandMono) {
+        return commandMono
+                // Élesben MapStruct
+                .map(command -> new User(command.getName(), command.getPassword(), command.getRole()))
+                .flatMap(userRepository::save);
+    }
 }
