@@ -25,7 +25,7 @@ public class SecurityConfig {
 //    }
 
     @Bean
-    public ReactiveUserDetailsService userDetailsService(UserRepository userRepository) {
+    public UserService userDetailsService(UserRepository userRepository) {
         return new UserService(userRepository);
     }
 
