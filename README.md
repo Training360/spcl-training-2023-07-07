@@ -20,3 +20,10 @@ docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -d -p 8090:8080 --n
 
 ## Config Server & Client
  
+```shell
+docker compose up -d
+```
+
+```shell
+docker run -d --cap-add=IPC_LOCK -e VAULT_DEV_ROOT_TOKEN_ID=myroot -p 8200:8200 --name vault vault:1.13.3
+```
