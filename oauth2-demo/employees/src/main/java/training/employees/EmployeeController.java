@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,7 +22,10 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public Flux<Employee> listEmployees() {
+    public Flux<Employee> listEmployees(@RequestHeader HttpHeaders httpHeaders,
+                                        @AuthenticationPrincipal Principal principal) {
+        log.debug("headers: {}", httpHeaders);
+        log.debug("principal: {}", principal);
         return employeeService.listEmployees();
     }
 
