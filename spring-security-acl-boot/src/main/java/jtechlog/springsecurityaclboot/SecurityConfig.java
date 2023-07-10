@@ -58,7 +58,10 @@ public class SecurityConfig {
 
     @Bean
     public MutableAclService mutableAclService() {
-        JdbcMutableAclService jdbcMutableAclService = new H2JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
+        //JdbcMutableAclService jdbcMutableAclService = new H2JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
+        JdbcMutableAclService jdbcMutableAclService = new JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
+        jdbcMutableAclService.setClassIdentityQuery("select currval(pg_get_serial_sequence('acl_class', 'id'))");
+        jdbcMutableAclService.setSidIdentityQuery("select currval(pg_get_serial_sequence('acl_sid', 'id'))");
         return jdbcMutableAclService;
     }
 
