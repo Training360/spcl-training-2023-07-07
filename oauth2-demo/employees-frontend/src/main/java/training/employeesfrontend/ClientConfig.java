@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -23,48 +26,51 @@ import java.util.stream.Stream;
 public class ClientConfig {
 
     @Bean
-    public EmployeeClient employeeClient(WebClient.Builder builder) {
+    public EmployeeClient employeeClient(WebClient.Builder builder, ReactiveClientRegistrationRepository clientRegistrations,
+                                         ServerOAuth2AuthorizedClientRepository authorizedClients) {
+        ServerOAuth2AuthorizedClientExchangeFilterFunction oauth =
+                new ServerOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
+        oauth.setDefaultOAuth2AuthorizedClient(true);
+
+
         WebClient client = WebClient
                 .builder()
+
+                .filter(oauth)
+                .filters(exchangeFilterFunctions -> {
+                    exchangeFilterFunctions.add(logRequest());
+                    exchangeFilterFunctions.add(logResponse());
+                })
+
+
                 .baseUrl("http://localhost:8081/").build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
         EmployeeClient service = factory.createClient(EmployeeClient.class);
         return service;
     }
 
-    @Bean
-    public GrantedAuthoritiesMapper userAuthoritiesMapper() {
-        return (authorities) -> authorities.stream().flatMap(authority -> {
-            if (authority instanceof OidcUserAuthority oidcUserAuthority) {
-                var realmAccess = (Map<String, Object>) oidcUserAuthority.getAttributes().get("realm_access");
-                var roles = (List<String>)realmAccess.get("roles");
-
-
-//                    OidcIdToken idToken = oidcUserAuthority.getIdToken();
-//                    OidcUserInfo userInfo = oidcUserAuthority.getUserInfo();
-
-                // Map the claims found in idToken and/or userInfo
-                // to one or more GrantedAuthority's and add it to mappedAuthorities
-                return roles.stream()
-                        .map(roleName -> "ROLE_" + roleName)
-                        .map(SimpleGrantedAuthority::new);
-
-
-            } else if (authority instanceof OAuth2UserAuthority oauth2UserAuthority) {
-                Map<String, Object> userAttributes = oauth2UserAuthority.getAttributes();
-
-                // Map the attributes found in userAttributes
-                // to one or more GrantedAuthority's and add it to mappedAuthorities
-                return Stream.of();
+    ExchangeFilterFunction logRequest() {
+        return ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {
+            if (log.isDebugEnabled()) {
+                StringBuilder sb = new StringBuilder("Request: \n");
+                sb.append(clientRequest.headers());
+                log.debug(sb.toString());
             }
-            else if (authority instanceof SimpleGrantedAuthority simpleGrantedAuthority) {
-                return Stream.of(simpleGrantedAuthority);
-            }
-            else {
-                throw new IllegalStateException("Invalid authority: %s".formatted(authority.getClass().getName()));
-            }
-        }).toList();
+            return Mono.just(clientRequest);
+        });
     }
+
+    ExchangeFilterFunction logResponse() {
+        return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
+            if (log.isDebugEnabled()) {
+                StringBuilder sb = new StringBuilder("Response: \n");
+                sb.append(clientResponse.headers());
+                log.debug(sb.toString());
+            }
+            return Mono.just(clientResponse);
+        });
+    }
+
 
 
 }
