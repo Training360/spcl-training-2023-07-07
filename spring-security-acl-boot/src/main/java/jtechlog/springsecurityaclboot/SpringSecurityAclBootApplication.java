@@ -1,13 +1,13 @@
-package training.acldemo;
+package jtechlog.springsecurityaclboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AclDemoApplication {
+public class SpringSecurityAclBootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AclDemoApplication.class, args);
+		SpringApplication.run(SpringSecurityAclBootApplication.class, args);
 	}
 
 }
