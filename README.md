@@ -27,3 +27,9 @@ docker compose up -d
 ```shell
 docker run -d --cap-add=IPC_LOCK -e VAULT_DEV_ROOT_TOKEN_ID=myroot -p 8200:8200 --name vault vault:1.13.3
 ```
+
+```shell
+export VAULT_ADDR=http://127.0.0.1:8200
+export VAULT_TOKEN=myroot
+vault kv put secret/config-client-demo demo.message='Hello from Vault %s'
+```
