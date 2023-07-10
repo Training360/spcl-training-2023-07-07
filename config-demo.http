@@ -3,3 +3,12 @@ GET http://localhost:8080/api/hello?name=Joe
 
 ### Config
 GET http://localhost:8888/config-client-demo/default
+
+### Refresh
+POST http://localhost:8888/monitor
+Content-Type: application/x-www-form-urlencoded
+
+path=config-client-demo
+
+### Send event
+POST http://localhost:8888/api/caches/clear
