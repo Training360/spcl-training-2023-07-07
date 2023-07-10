@@ -1,0 +1,5 @@
+### GET
+GET http://localhost:8080/api/hello?name=Joe
+
+### Config
+GET http://localhost:8888/config-client-demo/default
