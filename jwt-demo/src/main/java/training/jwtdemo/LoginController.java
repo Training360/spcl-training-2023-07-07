@@ -48,12 +48,12 @@ public class LoginController {
                                     .ok()
                                     .header(HttpHeaders.SET_COOKIE, ResponseCookie
                                             .from("token", jwt)
-                                            .path("/")
+                                            .path("/api")
                                             .maxAge(Duration.of(30, ChronoUnit.MINUTES))
                                             .httpOnly(true)
                                             .build().toString()
                                     )
-                                    .body(new LoginResponse("Successfull"))
+                                    .body(new LoginResponse("Successful"))
                             );
     }
 }
