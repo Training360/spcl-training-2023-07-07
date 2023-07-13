@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Employees</title>
+    <link href="employees.css" rel="stylesheet" />
+</head>
+<body>
+
+<h1>User</h1>
+
+<p th:replace="~{fragments/menu.html :: p}"></p>
+
+<p th:text="${name}"></p>
+
+<p th:if="${avatarUrl}">
+    <img th:src="${avatarUrl}" width="200" height="200" />
+</p>
+
+
+<pre><code th:text="${idTokenString}"></code></pre>
+
+<pre><code th:text="${idToken}"></code></pre>
+
+
+<pre><code th:text="${tokenString}"></code></pre>
+
+<pre><code th:text="${token}"></code></pre>
+
+</body>
+</html>
