@@ -3,6 +3,7 @@ package training.employees;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class EmployeeController {
     private SimulationProperties simulationProperties;
 
     @GetMapping
-    public Mono<ResponseEntity<Flux<Employee>>> listEmployees() {
-        log.debug("Call list employees");
+    public Mono<ResponseEntity<Flux<Employee>>> listEmployees(@RequestHeader HttpHeaders headers) {
+        log.debug("Call list employees: {}", headers);
         if (simulationProperties.isThrowException()) {
 //            throw new IllegalStateException("For simulation purpose throws exception");
             ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);

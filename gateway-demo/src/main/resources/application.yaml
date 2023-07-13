@@ -9,4 +9,10 @@ spring:
           uri: http://localhost:8081/
           predicates:
             - Path=/api/employees
+          filters:
+            - AddRequestHeader=X-Request-Message, HelloTraining
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/api/employees/fake
 
