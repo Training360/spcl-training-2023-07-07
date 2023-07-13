@@ -7,6 +7,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableTask
@@ -16,6 +17,11 @@ public class TaskDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaskDemoApplication.class, args);
+	}
+
+	@Bean
+	public HelloWorldApplicationRunner runner() {
+		return new HelloWorldApplicationRunner();
 	}
 
 	public static class HelloWorldApplicationRunner implements ApplicationRunner {

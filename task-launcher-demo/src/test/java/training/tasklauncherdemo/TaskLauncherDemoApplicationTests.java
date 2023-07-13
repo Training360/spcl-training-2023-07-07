@@ -1,10 +1,10 @@
-package training.taskdemo;
+package training.tasklauncherdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TaskDemoApplicationTests {
+class TaskLauncherDemoApplicationTests {
 
 	@Test
 	void contextLoads() {
