@@ -7,6 +7,4 @@ Content-Type: application/json
 }
 
 ### Get
-
 GET http://localhost:8080/api/hello
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNjg4OTg2NzA1LCJleHAiOjE2ODg5ODg1MDUsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.i7aLvj0Aglcv9wD99KJBtUehK_e3AgUliJOQ2Bx0LH2zV9kXbJXu3m-rSFfuVlHnapZJ89sTNi9hKwEOS_DM0w
