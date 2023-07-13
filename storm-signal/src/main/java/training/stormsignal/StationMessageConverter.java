@@ -2,9 +2,11 @@ package training.stormsignal;
 
 import org.springframework.messaging.Message;
 import org.springframework.messaging.converter.AbstractMessageConverter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 import training.stormsignal.dto.Station;
 
+@Component
 public class StationMessageConverter extends AbstractMessageConverter {
 
     public StationMessageConverter() {

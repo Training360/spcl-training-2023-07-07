@@ -1,11 +1,1 @@
-### Hello message
-GET http://localhost:8080/createHelloMessage|logHelloMessage
-
-### Hello message
-GET http://localhost:8080/download|logHelloMessage
-
-### Hello message
-GET http://localhost:8080/download|logStations
-
-### Hello message
-GET http://localhost:8080/download|convertToStations|logStations
+GET http://localhost:8080/download|convertToStations|filter|logEvents

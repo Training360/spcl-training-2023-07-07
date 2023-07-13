@@ -1,5 +1,6 @@
 package training.stormsignal;
 
+import kafka.utils.Scheduler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +9,7 @@ import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import training.stormsignal.dto.Station;
 import training.stormsignal.dto.StationsDocument;
 import training.stormsignal.entity.StormSignalEvent;
@@ -50,7 +52,8 @@ public class StormSignalApplication {
 				.build()
 				.get()
 				.retrieve()
-				.bodyToMono(String.class);
+				.bodyToMono(String.class)
+				.log();
 	}
 
 	@Bean

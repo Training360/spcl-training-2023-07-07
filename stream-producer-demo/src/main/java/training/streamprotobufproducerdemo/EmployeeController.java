@@ -13,8 +13,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/api/employees")
-    public void createEmployee(@RequestBody CreateEmployeeCommand commandMono) {
-        employeeService.createEmployee(commandMono);
+    public Mono<CreateEmployeeCommand> createEmployee(@RequestBody Mono<CreateEmployeeCommand> commandMono) {
+        return employeeService.createEmployee(commandMono);
     }
 
 }
