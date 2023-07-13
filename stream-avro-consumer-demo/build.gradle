@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.github.davidmc24.gradle.plugin.avro' version '1.7.1'
+}
+
+group = 'training'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-function-context'
+	implementation 'org.springframework.cloud:spring-cloud-stream'
+//	Apache Kafka Binder
+	//implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka'
+	// Reactive Kafka Binder
+	implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive'
+	implementation 'org.springframework.cloud:spring-cloud-stream-schema-registry-client'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+ext {
+	set('springCloudVersion', "2022.0.3")
+}
+
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

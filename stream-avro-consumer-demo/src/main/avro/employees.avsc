@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "EmployeeHasCreatedEvent",
+    "namespace": "training.dto",
+    "fields": [
+    {
+        "name": "name",
+        "type": "string"
+    }
+    ]
+}
