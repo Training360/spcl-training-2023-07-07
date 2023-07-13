@@ -57,3 +57,9 @@ docker exec -it kafka-kafka-1 kafka-console-producer.sh --bootstrap-server local
 ```shell
 C:\java\apache-maven-3.9.3\bin\mvn.cmd install:install-file -Dfile=task-demo-0.0.1-SNAPSHOT.jar -DgroupId=training -DartifactId=task-demo -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
 ```
+
+# Tracing
+
+```shell
+docker run -d -p 9411:9411 --name zipkin openzipkin/zipkin
+```
