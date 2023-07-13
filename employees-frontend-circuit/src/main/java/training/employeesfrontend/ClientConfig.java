@@ -51,7 +51,7 @@ public class ClientConfig {
                 })
 
 
-                .baseUrl("http://localhost:8081/").build();
+                .baseUrl("http://localhost:8000/").build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
         EmployeeClient service = factory.createClient(EmployeeClient.class);
         return service;

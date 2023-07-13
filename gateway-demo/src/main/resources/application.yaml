@@ -16,3 +16,8 @@ spring:
                 name: myCircuitBreaker
                 fallbackUri: forward:/api/employees/fake
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
