@@ -1,0 +1,22 @@
+POST http://localhost:8081/actuator/env
+Content-Type: application/json
+
+{
+    "name": "demo.simulation.throw-exception",
+    "value": false
+}
+
+### Timeout
+POST http://localhost:8081/actuator/env
+Content-Type: application/json
+
+{
+    "name": "demo.simulation.delay-in-duration",
+    "value": "PT0S"
+}
+
+### Frontend
+GET http://localhost:8080/employees
+
+### Actuator
+GET http://localhost:8080/actuator/circuitbreakers
