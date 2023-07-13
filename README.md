@@ -33,3 +33,10 @@ export VAULT_ADDR=http://127.0.0.1:8200
 export VAULT_TOKEN=myroot
 vault kv put secret/config-client-demo demo.message='Hello from Vault %s'
 ```
+
+# Task  
+
+
+```shell
+docker run -d -e POSTGRES_DB=task -e POSTGRES_USER=task -e POSTGRES_PASSWORD=task -p 5432:5432  --name task-postgres postgres
+```
