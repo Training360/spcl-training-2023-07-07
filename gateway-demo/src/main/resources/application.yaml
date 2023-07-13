@@ -1,0 +1,12 @@
+server:
+  port: 8000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: employees
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/api/employees
+
