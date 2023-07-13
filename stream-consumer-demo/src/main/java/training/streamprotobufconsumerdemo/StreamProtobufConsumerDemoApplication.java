@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import reactor.core.publisher.Flux;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SpringBootApplication
 @Slf4j
@@ -17,11 +18,12 @@ public class StreamProtobufConsumerDemoApplication {
 	}
 
 	@Bean
-	public Consumer<Flux<EmployeeHasCreatedEvent>> handleEvent() {
+	public Function<Flux<EmployeeHasCreatedEvent>, Flux<ReplyEvent>> handleEvent() {
 		return
 				eventFlux -> eventFlux
 						.doOnNext(event -> log.debug("Event has come: {}", event))
 						.onErrorContinue((t, o) -> log.error("Error", t))
-						.subscribe();
+//						.subscribe();
+						.map(changedEvent -> new ReplyEvent("Hello %s".formatted(changedEvent.getName())));
 	}
 }
