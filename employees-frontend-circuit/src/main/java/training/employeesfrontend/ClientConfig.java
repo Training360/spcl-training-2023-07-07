@@ -43,8 +43,7 @@ public class ClientConfig {
 
     @Bean
     public EmployeeClient employeeClient(WebClient.Builder builder) {
-        WebClient client = WebClient
-                .builder()
+        WebClient client = builder
                 .filters(exchangeFilterFunctions -> {
                     exchangeFilterFunctions.add(logRequest());
                     exchangeFilterFunctions.add(logResponse());
